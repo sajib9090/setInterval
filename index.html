@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set interval</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgb(254, 137, 157);
+        }
+        section{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        div{
+            margin: 10px;
+        }
+        button{
+            padding: 5px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+        h2{
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <section>
+        <div>
+            <h2>Count: <span id="count">00</span></h2>
+        </div>
+        <div>
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+            <button id="reset">reset</button>
+        </div>
+
+    </section>
+    <script>
+        let num = 0;
+        function count(){
+            intervalId = setInterval(() => {
+                let x = ++num;
+                if(x < 10){
+                    document.getElementById('count').innerText = "0"+x;
+                    document.getElementById('count').style.color = 'gray';
+                }
+                else{
+                    document.getElementById('count').innerText =x;
+                    document.getElementById('count').style.color = 'white'
+                }
+               
+            }, 1000);
+        }
+        
+        document.getElementById('start').addEventListener('click', function(){  
+            if(num === 0){
+                   document.getElementById('start').setAttribute('disabled', true);
+                   count();
+             }
+            else{
+                document.getElementById('start').removeAttribute('disabled');
+            }
+        })
+        document.getElementById('stop').addEventListener('click', function(){
+            clearInterval(intervalId);
+            
+            document.getElementById('start').removeAttribute('disabled');
+        })
+        document.getElementById('reset').addEventListener('click', function(){
+            clearInterval(intervalId);
+            document.getElementById('count').innerText = '00';
+            num = 0;
+            document.getElementById('start').removeAttribute('disabled')
+        })
+
+    </script>
+</body>
+</html>
